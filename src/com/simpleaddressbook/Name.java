@@ -1,12 +1,19 @@
 package com.simpleaddressbook;
 import java.io.Serializable;
 
+/**
+ * This class consists of methods to create, or make changes to, a Name object to be used in the Entry class.
+ *
+ * @author Zaykha Kyaw San
+ * @version 1.0
+ * @since 2018-05-06
+ */
 public class Name implements Comparable<Name>, Serializable{
 	private String fname;
 	private String lname;
 	
 	/**
-	 * The default constructor which initializes the member variables to zero values
+	 * The default constructor which initializes the member variables to zero values.
 	 */	
 	public Name(){
 		fname = "";
@@ -14,7 +21,7 @@ public class Name implements Comparable<Name>, Serializable{
 	}
 
 	/**
-	 * This constructor initializes the member variables to user input values 
+	 * This constructor initializes the member variables to user input values.
 	 * @param fname is the first name
 	 * @param lname	is the last name
 	 */
@@ -25,16 +32,16 @@ public class Name implements Comparable<Name>, Serializable{
 	
 	// setters
 	/**
-	 * Sets the user input first name
-	 * @param fname is the user input first name
+	 * Sets the user input first name.
+	 * @param fname is the user input first name.
 	 */
 	public void setFirstName(String fname){
 		this.fname = fname;
 	}
 
 	/**
-	 * Sets the user input last name
-	 * @param lname is the user input last name
+	 * Sets the user input last name.
+	 * @param lname is the user input last name.
 	 */	
 	public void setLastName(String lname){
 		this.lname = lname;
@@ -42,23 +49,27 @@ public class Name implements Comparable<Name>, Serializable{
 	
 	// getters
 	/**
-	 * @return the currently listed first name of the entry
+	 * Returns the currently listed first name of the entry.
+	 * @return the currently listed first name of the entry.
 	 */
 	public String getFirstName(){
 		return this.fname;
 	}
 	
 	/**
-	 * @return the currently listed last name of the entry
+	 * Returns the currently listed last name of the entry.
+	 * @return the currently listed last name of the entry.
 	 */	
 	public String getLastName(){
 		return this.lname;
 	}
 	
 	/**
-	 * Overrides the default toString() method to make the name string in the format:
-	 * 		first name last name
-	 * @return the string representation of the Name object
+	 * Overrides the default toString() method to make the name string in the format:<br>
+	 * <pre>
+	 * <i>first name last name</i>
+	 * </pre>
+	 * @return the string representation of the Name object.
 	 */	
 	@Override
 	public String toString(){
@@ -67,9 +78,9 @@ public class Name implements Comparable<Name>, Serializable{
 	
 	/**
 	 * Overrides the default compareTo() method to compare two Name objects' hexadecimal values
-	 * of their last names initially then breaking ties with their first names
-	 * @param another is the Name object being compared with
-	 * @return negative, 0, or positive integer result of the comparison made
+	 * of their last names initially then breaking ties with their first names.
+	 * @param another is the Name object being compared with.
+	 * @return negative, 0, or positive integer result of the comparison made.
 	 */
 	@Override
 	public int compareTo(Name another){
@@ -87,11 +98,11 @@ public class Name implements Comparable<Name>, Serializable{
 	
 	/**
 	 * Overrides the default equals() method to check if it is being compared with
-	 * itself, an object of another class, or another Name object
-	 * @param another is an object of any type being compared with
-	 * @return true if it is compared with itself <br>
-	 * 		   false if it is compared with an object of another class <br>
-	 *		   boolean result of the comparison made between the two Name objects' string representations
+	 * itself, an object of another class, or another Name object.
+	 * @param another is an object of any type being compared with.
+	 * @return true if it is compared with itself. <br>
+	 * 		   false if it is compared with an object of another class. <br>
+	 *		   boolean result of the comparison made between the two Name objects' string representations.
 	 */
 	@Override
     public boolean equals(Object another) {

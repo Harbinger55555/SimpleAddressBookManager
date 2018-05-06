@@ -6,11 +6,19 @@ import java.util.Scanner;
 import java.io.Serializable;
 import java.util.InputMismatchException;
 
+/**
+ * This class consists of methods to create, or make changes to, an AddressBook object to be used in the AddressBookManager class.
+ * It also includes a method to output all the entries in the AddressBook object.
+ *
+ * @author Zaykha Kyaw San
+ * @version 1.0
+ * @since 2018-05-06
+ */
 public class AddressBook implements Serializable{
 	private ArrayList<Entry> addressBook;
 
 	/**
-	 * The default constructor initializes a new address book which is an arraylist of entries
+	 * The default constructor initializes a new address book which is an arraylist of entries.
 	 */
 	public AddressBook(){
 		addressBook = new ArrayList<Entry>();
@@ -18,14 +26,15 @@ public class AddressBook implements Serializable{
 
 	// getters
 	/**
-	 * @return the arraylist of entries, which is the address book
+	 * Returns the arraylist of entries, which is the address book.
+	 * @return the arraylist of entries, which is the address book.
 	 */	
 	public ArrayList<Entry> getAddressBook(){
 		return this.addressBook;
 	}
 
 	/**
-	 * Adds into the address book, the newly created Entry object returned from createEntry() method
+	 * Adds into the address book, the newly created Entry object returned from createEntry() method.
 	 */
 	public void addEntry(){
 		addressBook.add(this.createEntry());
@@ -33,8 +42,8 @@ public class AddressBook implements Serializable{
 
 	/**
 	 * Prompts user to input first name, last name, street address, city, state, zip code, and phone number
-	 * and creates an Entry object with the values
-	 * @return the newly created Entry object
+	 * and creates an Entry object with the values.
+	 * @return the newly created Entry object.
 	 */
 	// Simply creates a new entry with the user inputs; not added to AddressBook yet
 	public Entry createEntry(){
@@ -69,8 +78,8 @@ public class AddressBook implements Serializable{
 	}
 
 	/**
-	 * Prompts user to input first name and last name of an entry to be deleted <br>
-	 * Deletes an existing entry if the first name and last name inputs matches the entry's values
+	 * Prompts user to input first name and last name of an entry to be deleted.<br>
+	 * Deletes an existing entry if the first name and last name inputs matches the entry's values.
 	 */	
 	public void deleteEntry(){
 		Scanner scanner = new Scanner(System.in);
@@ -93,11 +102,11 @@ public class AddressBook implements Serializable{
 	}
 
 	/**
-	 * Prompts user to input first name and last name of an entry to edit <br>
+	 * Prompts user to input first name and last name of an entry to edit.<br>
 	 * If the entry exists, provides the user with a menu to select what field 
-	 * of the Entry object to edit, and allows the user to make changes to the corresponding field <br>
-	 * Exits the entry edit mode if input is not an integer or is not among the available choices
-	 * @exception InputMismatchException if user input for the Entry Edit Menu is not an integer
+	 * of the Entry object to edit, and allows the user to make changes to the corresponding field.<br>
+	 * Exits the entry edit mode if input is not an integer or is not among the available choices.
+	 * @exception InputMismatchException if user input for the Entry Edit Menu is not an integer.
 	 */
 	// searches the person entry to allow edits
 	public void editEntries(){
@@ -169,9 +178,9 @@ public class AddressBook implements Serializable{
 	}
 
 	/**
-	 * If the parameter sortType is 1, sorts the entries in the address book by last names and breaking ties with first names <br>
-	 * Else, sorts the entries by zip codes, breaking ties with the names
-	 * @param sortType is the integer value used to determine the sort type
+	 * If the parameter sortType is 1, sorts the entries in the address book by last names and breaking ties with first names.<br>
+	 * Else, sorts the entries by zip codes, breaking ties with the names.
+	 * @param sortType is the integer value used to determine the sort type.
 	 */	
 	public void sortEntries(int sortType){
 		if (sortType == 1){
@@ -203,8 +212,8 @@ public class AddressBook implements Serializable{
 	}
 
 	/**
-	 * Outputs the entries in the address book or 
-	 * outputs that the address book is empty if there are no existing entries
+	 * Outputs the entries in the address book or
+	 * outputs that the address book is empty if there are no existing entries.
 	 */		
 	public void printEntries(){
 		System.out.println("\n------------------------------------------------------------");

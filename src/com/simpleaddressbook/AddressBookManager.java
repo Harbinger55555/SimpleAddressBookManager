@@ -8,12 +8,24 @@ import java.io.ObjectOutputStream;
 import java.lang.ClassNotFoundException;
 import java.util.InputMismatchException;
 
+/**
+ * This class consists of methods to perform serialization on address book files as well as provide
+ * interactive menus. Some methods will throw <i>IOException</i> if the name input for the address book file
+ * does not exist, or if any of the members of any of the classes in the <b>simpleaddressbook</b> package had
+ * been altered, since the creation of the address book file. Some methods will throw <i>ClassNotFoundException</i>
+ * if the Java Virtual Machine tries to load a particular class and the specified class cannot be found in
+ * the classpath.
+ *
+ * @author Zaykha Kyaw San
+ * @version 1.0
+ * @since 2018-05-06
+ */
 public class AddressBookManager{
 	private AddressBook currentAddressBook;
 	private String currentFileName;
 	
 	/**
-	 * The default constructor which initializes the member variables to zero values
+	 * The default constructor which initializes the member variables to zero values.
 	 */		
 	public AddressBookManager(){
 		currentAddressBook = null;
@@ -21,12 +33,9 @@ public class AddressBookManager{
 	}
 
 	/**
-	 * Provides the user with a File menu and performs the corresponding function of the selection made <br>
+	 * Provides the user with a File menu and performs the corresponding function of the selection made.
 	 * Choosing to edit the currently opened address book will provide the user with another
-	 * menu to select what to do with the entries in the address book <br>
-	 * Throws IOException if address book file does not exist <br>
-	 * Throws ClassNotFoundException if the Java Virtual Machine tries to load a particular
-	 *		  class and the specified class cannot be found in the classpath
+	 * menu to select what to do with the entries in the address book.
 	 * @exception InputMismatchException if user inputs for the File Menu or the Address Book 
 	 *			  Edit Menu are not integers
 	 */
