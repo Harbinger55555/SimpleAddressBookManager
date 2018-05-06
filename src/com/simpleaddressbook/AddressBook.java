@@ -106,7 +106,6 @@ public class AddressBook implements Serializable{
 	 * If the entry exists, provides the user with a menu to select what field 
 	 * of the Entry object to edit, and allows the user to make changes to the corresponding field.<br>
 	 * Exits the entry edit mode if input is not an integer or is not among the available choices.
-	 * @exception InputMismatchException if user input for the Entry Edit Menu is not an integer.
 	 */
 	// searches the person entry to allow edits
 	public void editEntries(){

@@ -10,11 +10,7 @@ import java.util.InputMismatchException;
 
 /**
  * This class consists of methods to perform serialization on address book files as well as provide
- * interactive menus. Some methods will throw <i>IOException</i> if the name input for the address book file
- * does not exist, or if any of the members of any of the classes in the <b>simpleaddressbook</b> package had
- * been altered, since the creation of the address book file. Some methods will throw <i>ClassNotFoundException</i>
- * if the Java Virtual Machine tries to load a particular class and the specified class cannot be found in
- * the classpath.
+ * interactive menus.
  *
  * @author Zaykha Kyaw San
  * @version 1.0
@@ -35,11 +31,10 @@ public class AddressBookManager{
 	/**
 	 * Provides the user with a File menu and performs the corresponding function of the selection made.
 	 * Choosing to edit the currently opened address book will provide the user with another
-	 * menu to select what to do with the entries in the address book.
-	 * @exception InputMismatchException if user inputs for the File Menu or the Address Book 
-	 *			  Edit Menu are not integers
+	 * menu to select what to do with the entries in the address book. 
 	 */
 	public void fileMenu(){
+		// fileMenu() is recalled if the user input is not an integer or is not among the selection choices
 		try{
 			Scanner scanner = new Scanner(System.in);
 			System.out.println("\n------------------------------------------------------------");
