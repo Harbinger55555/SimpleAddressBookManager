@@ -1,0 +1,7 @@
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>com.simpleaddressbook</groupId>
+	<artifactId>simpleaddressbook</artifactId>
+	<version>1.0-SNAPSHOT</version>
+</project>
