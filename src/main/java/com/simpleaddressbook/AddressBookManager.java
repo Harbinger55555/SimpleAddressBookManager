@@ -326,7 +326,6 @@ public class AddressBookManager{
 			
 			System.out.println("\nPlease input the name of the address book file to be opened: ");
 			String filename = scanner.nextLine();
-			System.out.println("\nAddress book (" + filename + ") is now currently opened!");
 			ObjectInputStream oStream = new ObjectInputStream(Files.newInputStream(Paths.get(filename + ".zay")));
 			currentFileName = filename;
 			currentAddressBook = (AddressBook) oStream.readObject();
