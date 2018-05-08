@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Scanner;
 import java.io.Serializable;
 import java.util.InputMismatchException;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
 /**
  * This class consists of methods to create, or make changes to, an AddressBook object to be used in the AddressBookManager class.
@@ -35,19 +37,28 @@ public class AddressBook implements Serializable{
 
 	/**
 	 * Adds into the address book, the newly created Entry object returned from createEntry() method.
+	 * @param simulatedUserInput is the pre-entered user inputs, for testing purposes, for the prompts that createEntry method will be making.
 	 */
-	public void addEntry(){
-		addressBook.add(this.createEntry());
+	public void addEntry(String simulatedUserInput){
+		addressBook.add(this.createEntry(simulatedUserInput));
 	}
-
-	/**
-	 * Prompts user to input first name, last name, street address, city, state, zip code, and phone number
-	 * and creates an Entry object with the values.
-	 * @return the newly created Entry object.
-	 */
+	
 	// Simply creates a new entry with the user inputs; not added to AddressBook yet
-	public Entry createEntry(){
-		Scanner scanner = new Scanner(System.in);
+	// Prompts user to input first name, last name, street address, city, state, zip code, and phone number
+	// and creates an Entry object with the values.
+	// Parameter simulatedUserInput is the pre-entered user inputs for the prompts for testing purposes.
+	private Entry createEntry(String simulatedUserInput){
+		Scanner scanner = null;
+		
+		// if there is no default simulatedUserInput, scanner will take in user inputs instead
+		if (simulatedUserInput.equals("")){
+			scanner = new Scanner(System.in);
+		}
+		else{
+			ByteArrayInputStream in = new ByteArrayInputStream(simulatedUserInput.getBytes());
+			System.setIn(in);
+			scanner = new Scanner(in);
+		}
 		
 		// take inputs for first name and last name
 		System.out.println("\nPlease enter the first name: ");
@@ -80,9 +91,20 @@ public class AddressBook implements Serializable{
 	/**
 	 * Prompts user to input first name and last name of an entry to be deleted.<br>
 	 * Deletes an existing entry if the first name and last name inputs matches the entry's values.
+	 * @param simulatedUserInput is the pre-entered System inputs, for testing purposes.
 	 */	
-	public void deleteEntry(){
-		Scanner scanner = new Scanner(System.in);
+	public void deleteEntry(String simulatedUserInput){
+		Scanner scanner = null;
+		
+		// if there is no default simulatedUserInput, scanner will take in user inputs instead
+		if (simulatedUserInput.equals("")){
+			scanner = new Scanner(System.in);
+		}
+		else{
+			ByteArrayInputStream in = new ByteArrayInputStream(simulatedUserInput.getBytes());
+			System.setIn(in);
+			scanner = new Scanner(in);
+		}
 		
 		// take inputs for first name and last name to search for the matching entry in the AddressBook
 		System.out.println("\nPlease enter the first name of the person: ");
@@ -106,10 +128,21 @@ public class AddressBook implements Serializable{
 	 * If the entry exists, provides the user with a menu to select what field 
 	 * of the Entry object to edit, and allows the user to make changes to the corresponding field.<br>
 	 * Exits the entry edit mode if input is not an integer or is not among the available choices.
+	 * @param simulatedUserInput is the pre-entered System inputs, for testing purposes.
 	 */
 	// searches the person entry to allow edits
-	public void editEntries(){
-		Scanner scanner = new Scanner(System.in);
+	public void editEntries(String simulatedUserInput){
+		Scanner scanner = null;
+		
+		// if there is no default simulatedUserInput, scanner will take in user inputs instead
+		if (simulatedUserInput.equals("")){
+			scanner = new Scanner(System.in);
+		}
+		else{
+			ByteArrayInputStream in = new ByteArrayInputStream(simulatedUserInput.getBytes());
+			System.setIn(in);
+			scanner = new Scanner(in);
+		}
 		
 		// take inputs for first name and last name to search for the matching entry in the AddressBook
 		System.out.println("\nPlease enter the first name of the person: ");

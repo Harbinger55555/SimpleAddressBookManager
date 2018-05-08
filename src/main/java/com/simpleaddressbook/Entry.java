@@ -103,4 +103,31 @@ public class Entry implements Comparable<Entry>, Serializable{
 		}
 		return res;
 	}
+	
+	/**
+	 * Overrides the default equals() method to check if it is being compared with
+	 * itself, an object of another class, or another Entry object.
+	 * @param another is an object of any type being compared with.
+	 * @return true if it is compared with itself. <br>
+	 * 		   false if it is compared with an object of another class. <br>
+	 *		   boolean result of the comparison made between the two Entry objects' string representations.
+	 */
+	@Override
+    public boolean equals(Object another) {
+ 
+        // Return True if object is compared with itself  
+        if (another == this) {
+            return true;
+        }
+ 
+        // Check if another is an instance of Entry or not; "null instanceof [type]" also returns false
+        if (!(another instanceof Entry)) {
+            return false;
+        }
+         
+        // typecast another to Entry to compare 
+        Entry o = (Entry) another;
+         
+        return this.toString().equals(o.toString());
+    }
 }

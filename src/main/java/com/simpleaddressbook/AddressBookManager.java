@@ -28,6 +28,23 @@ public class AddressBookManager{
 		currentFileName = "";
 	}
 
+	// getters
+	/**
+	 * Returns the currently opened address book in the address book manager.
+	 * @return the currently opened address book in the address book manager.
+	 */	
+	public AddressBook getCurrentAddressBook(){
+		return currentAddressBook;
+	}
+	
+	/**
+	 * Returns the currently listed file name in the address book manager.
+	 * @return the currently listed file name in the address book manager.
+	 */		
+	public String getCurrentFileName(){
+		return currentFileName;
+	}
+
 	/**
 	 * Provides the user with a File menu and performs the corresponding function of the selection made.
 	 * Choosing to edit the currently opened address book will provide the user with another
@@ -52,13 +69,13 @@ public class AddressBookManager{
 			scanner.nextLine(); // to eliminate the \n
 			switch (choice){
 				case 1:
-					newAddressBook();
+					newAddressBook(0);
 					break;
 				case 2:
-					openAddressBook();
+					openAddressBook(0);
 					break;
 				case 3:
-					editAddressBook();
+					editAddressBook(0);
 					break;
 				case 4:
 					closeAddressBook(0);
@@ -83,20 +100,24 @@ public class AddressBookManager{
 			this.fileMenu();
 		}
 	}
-	
+
 	// create a new address book
-	private void newAddressBook(){
+	private void newAddressBook(int call_from_another){
 		if (currentAddressBook != null){
 			closeAddressBook(1);
 		}
 		currentAddressBook = new AddressBook();
 		currentFileName = "";
 		System.out.println("\nNew address book is now currently opened!");
-		fileMenu();
+		// if newAddressBook is explicitly called from file menu, open file menu again
+		// else allow the newAddressBook function to end and the other function which called it to resume
+		if (call_from_another == 0){
+			fileMenu();
+		}
 	}
 	
 	// edit the currently opened address book
-	private void editAddressBook(){
+	private void editAddressBook(int call_from_another){
 		if (currentAddressBook != null){
 			try {
 				Scanner scanner = new Scanner(System.in);
@@ -114,13 +135,13 @@ public class AddressBookManager{
 				scanner.nextLine(); // to eliminate the \n
 				switch (choice){
 					case 1:
-						currentAddressBook.addEntry();
+						currentAddressBook.addEntry("");
 						break;
 					case 2:
-						currentAddressBook.deleteEntry();
+						currentAddressBook.deleteEntry("");
 						break;
 					case 3:
-						currentAddressBook.editEntries();
+						currentAddressBook.editEntries("");
 						break;
 					case 4:
 						currentAddressBook.sortEntries(1);
@@ -143,7 +164,11 @@ public class AddressBookManager{
 		else {
 			System.out.println("\nNo address book is currently opened!");
 		}
-		fileMenu();
+		// if editAddressBook is explicitly called from file menu, open file menu again
+		// else allow the editAddressBook function to end and the other function which called it to resume
+		if (call_from_another == 0){
+			fileMenu();
+		}
 	}
 	
 	// save currently opened address book
@@ -200,7 +225,7 @@ public class AddressBookManager{
 	}
 	
 	// open an address book
-	private void openAddressBook(){
+	private void openAddressBook(int call_from_another){
 		if (currentAddressBook != null){
 			closeAddressBook(1);
 		}
@@ -219,7 +244,9 @@ public class AddressBookManager{
 		catch (ClassNotFoundException e){
 			e.printStackTrace();
 		}
-		fileMenu();
+		if (call_from_another == 0){
+			fileMenu();
+		}
 	}
 	
 	// close currently opened address book
