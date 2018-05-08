@@ -7,6 +7,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.ClassNotFoundException;
 import java.util.InputMismatchException;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
 /**
  * This class consists of methods to perform serialization on address book files as well as provide
@@ -27,7 +29,24 @@ public class AddressBookManager{
 		currentAddressBook = null;
 		currentFileName = "";
 	}
-
+	
+	// setters
+	/**
+	 * Sets the user input address book as currently opened address book in the address book manager.
+	 * @param ab is the user input address book.
+	 */
+	public void setCurrentAddressBook(AddressBook ab){
+		this.currentAddressBook = ab;
+	}
+	
+	/**
+	 * Sets the user input file name as currently listed file name in the address book manager.
+	 * @param fn is the user input file name.
+	 */
+	public void setCurrentFileName(String fn){
+		this.currentFileName = fn;
+	}
+	
 	// getters
 	/**
 	 * Returns the currently opened address book in the address book manager.
@@ -72,19 +91,19 @@ public class AddressBookManager{
 					newAddressBook(0);
 					break;
 				case 2:
-					openAddressBook(0);
+					openAddressBook(0, "");
 					break;
 				case 3:
 					editAddressBook(0);
 					break;
 				case 4:
-					closeAddressBook(0);
+					closeAddressBook(0, "");
 					break;
 				case 5:
-					saveAddressBook(0);
+					saveAddressBook(0, "");
 					break;
 				case 6:
-					saveAddressBookAs(0);
+					saveAddressBookAs(0, "");
 					break;
 				case 7:
 					quitProgram();
@@ -101,10 +120,14 @@ public class AddressBookManager{
 		}
 	}
 
+	/**
+	 * This is used to create a new unnamed Address Book.
+	 * @param call_from_another is used to differentiate calls from the file menu and from other methods.
+	 */
 	// create a new address book
-	private void newAddressBook(int call_from_another){
+	public void newAddressBook(int call_from_another){
 		if (currentAddressBook != null){
-			closeAddressBook(1);
+			closeAddressBook(1, "");
 		}
 		currentAddressBook = new AddressBook();
 		currentFileName = "";
@@ -170,12 +193,17 @@ public class AddressBookManager{
 			fileMenu();
 		}
 	}
-	
+
+	/**
+	 * This function helps serialize the currently open address book.
+	 * @param call_from_another is used to differentiate calls from the file menu and from other methods.
+	 * @param simulatedUserInput is the pre-entered user inputs, for testing purposes.
+	 */	
 	// save currently opened address book
-	private void saveAddressBook(int call_from_another){
+	public void saveAddressBook(int call_from_another, String simulatedUserInput){
 		if (currentAddressBook != null){
 			if (currentFileName.equals("")){
-				saveAddressBookAs(1);
+				saveAddressBookAs(1, simulatedUserInput);
 			}
 			else {
 				try{
@@ -199,10 +227,20 @@ public class AddressBookManager{
 	}
 	
 	// saveAs
-	private void saveAddressBookAs(int call_from_another){
+	private void saveAddressBookAs(int call_from_another, String simulatedUserInput){
 		if (currentAddressBook != null){
 			try{
-				Scanner scanner = new Scanner(System.in);
+				Scanner scanner = null;
+				
+				// if there is no default simulatedUserInput, scanner will take in user inputs instead
+				if (simulatedUserInput.equals("")){
+					scanner = new Scanner(System.in);
+				}
+				else{
+					ByteArrayInputStream in = new ByteArrayInputStream(simulatedUserInput.getBytes());
+					System.setIn(in);
+					scanner = new Scanner(in);
+				}
 				System.out.println("\nPlease input the file name to be saved as: ");
 				String filename = scanner.nextLine();
 				ObjectOutputStream oStream = new ObjectOutputStream(Files.newOutputStream(Paths.get(filename + ".zay")));
@@ -223,16 +261,33 @@ public class AddressBookManager{
 			fileMenu();
 		}
 	}
-	
+
+	/**
+	 * This function helps serialize data for an address book Object from a saved address book file.
+	 * @param call_from_another is used to differentiate calls from the file menu and from other methods.
+	 * @param simulatedUserInput is the pre-entered user inputs, for testing purposes.
+	 */	
 	// open an address book
-	private void openAddressBook(int call_from_another){
+	public void openAddressBook(int call_from_another, String simulatedUserInput){
 		if (currentAddressBook != null){
-			closeAddressBook(1);
+			closeAddressBook(1, simulatedUserInput);
 		}
 		try{
-			Scanner scanner = new Scanner(System.in);
+			Scanner scanner = null;
+			
+			// if there is no default simulatedUserInput, scanner will take in user inputs instead
+			if (simulatedUserInput.equals("")){
+				scanner = new Scanner(System.in);
+			}
+			else{
+				ByteArrayInputStream in = new ByteArrayInputStream(simulatedUserInput.getBytes());
+				System.setIn(in);
+				scanner = new Scanner(in);
+			}
+			
 			System.out.println("\nPlease input the name of the address book file to be opened: ");
 			String filename = scanner.nextLine();
+			System.out.println("\nAddress book (" + filename + ") is now currently opened!");
 			ObjectInputStream oStream = new ObjectInputStream(Files.newInputStream(Paths.get(filename + ".zay")));
 			currentFileName = filename;
 			currentAddressBook = (AddressBook) oStream.readObject();
@@ -250,13 +305,24 @@ public class AddressBookManager{
 	}
 	
 	// close currently opened address book
-	private void closeAddressBook(int call_from_another){
+	private void closeAddressBook(int call_from_another, String simulatedUserInput){
 		if (currentAddressBook != null){
-			Scanner scanner = new Scanner(System.in);
+			Scanner scanner = null;
+			
+			// if there is no default simulatedUserInput, scanner will take in user inputs instead
+			if (simulatedUserInput.equals("")){
+				scanner = new Scanner(System.in);
+			}
+			else{
+				ByteArrayInputStream in = new ByteArrayInputStream(simulatedUserInput.getBytes());
+				System.setIn(in);
+				scanner = new Scanner(in);
+			}
+			
 			System.out.println("\nDo you want to save any unsaved changes? (Y/N)");
 			String choice = scanner.nextLine();
 			if (choice.equalsIgnoreCase("y")){
-				saveAddressBook(1);
+				saveAddressBook(1, simulatedUserInput);
 			}
 			else if (choice.equalsIgnoreCase("n")){
 				System.out.println("\nUnsaved changes not saved!");
@@ -282,7 +348,7 @@ public class AddressBookManager{
 	// exit the program
 	private void quitProgram(){
 		if (currentAddressBook != null){
-			closeAddressBook(1);
+			closeAddressBook(1, "");
 		}
 		System.exit(0);
 	}

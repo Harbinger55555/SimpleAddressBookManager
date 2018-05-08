@@ -100,8 +100,8 @@ public class Name implements Comparable<Name>, Serializable{
 	 * Overrides the default equals() method to check if it is being compared with
 	 * itself, an object of another class, or another Name object.
 	 * @param another is an object of any type being compared with.
-	 * @return true if it is compared with itself. <br>
-	 * 		   false if it is compared with an object of another class. <br>
+	 * @return true if it is compared with itself.<br>
+	 * 		   false if it is compared with an object of another class.<br>
 	 *		   boolean result of the comparison made between the two Name objects' string representations.
 	 */
 	@Override

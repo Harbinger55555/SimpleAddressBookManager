@@ -261,4 +261,46 @@ public class AddressBook implements Serializable{
 			System.out.println("\nThe address book is empty!");
 		}
 	}
+	
+	/**
+	 * Overrides the default equals() method to check if it is being compared with
+	 * itself, an object of another class, or another AddressBook object.
+	 * @param another is an object of any type being compared with.
+	 * @return true if it is compared with itself.<br>
+	 * 		   false if it is compared with an object of another class.<br>
+	 *		   boolean result of the comparison made between the two AddressBook objects' arraylists of entries.
+	 */
+	@Override
+    public boolean equals(Object another) {
+ 
+        // Return True if object is compared with itself  
+        if (another == this) {
+            return true;
+        }
+ 
+        // Check if another is an instance of AddressBook or not; "null instanceof [type]" also returns false
+        if (!(another instanceof AddressBook)) {
+            return false;
+        }
+         
+        // typecast another to AddressBook to compare 
+        AddressBook o = (AddressBook) another;
+        
+		// comparing the arraylist of entries of the two AddressBook Objects
+		ArrayList<Entry> ab1 = this.getAddressBook();
+		ArrayList<Entry> ab2 = o.getAddressBook();
+		// checking for null
+        if(ab1 == null && ab2 == null)
+            return true;
+        if((ab1 == null && ab2 != null) || (ab1 != null && ab2 == null))
+            return false;
+        if(ab1.size() != ab2.size())
+            return false;
+        for(Object item: ab1)
+        {
+            if(!ab2.contains(item))
+                return false;
+        }
+        return true;
+    }
 }
