@@ -65,6 +65,6 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.simpleaddressbook.AddressBookManagerTest" name="createNewAddressBook" time="0.007"/>
-  <testcase classname="com.simpleaddressbook.AddressBookManagerTest" name="saveAddressBook" time="0.078"/>
+  <testcase classname="com.simpleaddressbook.AddressBookManagerTest" name="saveAddressBook" time="0.085"/>
+  <testcase classname="com.simpleaddressbook.AddressBookManagerTest" name="createNewAddressBook" time="0"/>
 </testsuite>
