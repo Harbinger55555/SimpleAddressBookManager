@@ -68,11 +68,23 @@ public class AddressBookManager{
 	 * Provides the user with a File menu and performs the corresponding function of the selection made.
 	 * Choosing to edit the currently opened address book will provide the user with another
 	 * menu to select what to do with the entries in the address book.
+	 * @param simulatedUserInput is the pre-entered user inputs, for testing purposes.
+	 * @throws InputMismatchException if simulatedUserInput is not an integer string.
 	 */
-	public void fileMenu(){
+	public void fileMenu(String simulatedUserInput) throws InputMismatchException{
 		// fileMenu() is recalled if the user input is not an integer or is not among the selection choices
 		try{
-			Scanner scanner = new Scanner(System.in);
+			Scanner scanner = null;
+			
+			// if there is no default simulatedUserInput, scanner will take in user inputs instead
+			if (simulatedUserInput.equals("")){
+				scanner = new Scanner(System.in);
+			}
+			else{
+				ByteArrayInputStream in = new ByteArrayInputStream(simulatedUserInput.getBytes());
+				System.setIn(in);
+				scanner = new Scanner(in);
+			}
 			System.out.println("\n------------------------------------------------------------");
 			System.out.println("			 File Menu");
 			System.out.println("------------------------------------------------------------");
@@ -94,7 +106,7 @@ public class AddressBookManager{
 					openAddressBook(0, "");
 					break;
 				case 3:
-					editAddressBook(0);
+					editAddressBook(0, "");
 					break;
 				case 4:
 					closeAddressBook(0, "");
@@ -110,13 +122,18 @@ public class AddressBookManager{
 					break;
 				default:
 					System.out.println("\nInvalid choice! Please enter a valid number...");
-					this.fileMenu();
+					this.fileMenu("");
 					break;
 			}
 		}
 		catch (InputMismatchException e){
-			System.out.println("\nInvalid choice! Please enter a valid number...");
-			this.fileMenu();
+			if (simulatedUserInput.equals("")){
+				System.out.println("\nInvalid choice! Please enter a valid number...");
+				this.fileMenu("");
+			}
+			else{
+				throw new InputMismatchException();
+			}
 		}
 	}
 
@@ -135,15 +152,32 @@ public class AddressBookManager{
 		// if newAddressBook is explicitly called from file menu, open file menu again
 		// else allow the newAddressBook function to end and the other function which called it to resume
 		if (call_from_another == 0){
-			fileMenu();
+			fileMenu("");
 		}
 	}
 	
+	/**
+	 * This is used to edit the currently opened Address Book, by providing an Address Book Edit Menu
+	 * to choose what to do with the entries in the Address Book.
+	 * @param call_from_another is used to differentiate calls from the file menu and from other methods.
+	 * @param simulatedUserInput is the pre-entered user inputs, for testing purposes.
+	 * @throws InputMismatchException if simulatedUserInput is not an integer string.
+	 */
 	// edit the currently opened address book
-	private void editAddressBook(int call_from_another){
+	public void editAddressBook(int call_from_another, String simulatedUserInput) throws InputMismatchException{
 		if (currentAddressBook != null){
 			try {
-				Scanner scanner = new Scanner(System.in);
+				Scanner scanner = null;
+				
+				// if there is no default simulatedUserInput, scanner will take in user inputs instead
+				if (simulatedUserInput.equals("")){
+					scanner = new Scanner(System.in);
+				}
+				else{
+					ByteArrayInputStream in = new ByteArrayInputStream(simulatedUserInput.getBytes());
+					System.setIn(in);
+					scanner = new Scanner(in);
+				}
 				System.out.println("\n------------------------------------------------------------");
 				System.out.println("		     Address Book Edit Menu");
 				System.out.println("------------------------------------------------------------");
@@ -181,7 +215,12 @@ public class AddressBookManager{
 				}
 			}
 			catch (InputMismatchException e){
-				System.out.println("\nInvalid choice! Exiting Address Book Edit mode...");
+				if (simulatedUserInput.equals("")){
+					System.out.println("\nInvalid choice! Exiting Address Book Edit mode...");
+				}
+				else{
+					throw new InputMismatchException();
+				}
 			}
 		}
 		else {
@@ -190,7 +229,7 @@ public class AddressBookManager{
 		// if editAddressBook is explicitly called from file menu, open file menu again
 		// else allow the editAddressBook function to end and the other function which called it to resume
 		if (call_from_another == 0){
-			fileMenu();
+			fileMenu("");
 		}
 	}
 
@@ -222,7 +261,7 @@ public class AddressBookManager{
 		// if Save is explicitly called from file menu, open file menu again
 		// else allow the Save function to end and the other function which called it to resume
 		if (call_from_another == 0){
-			fileMenu();
+			fileMenu("");
 		}
 	}
 	
@@ -258,7 +297,7 @@ public class AddressBookManager{
 		// if Save As is explicitly called from file menu, open file menu again
 		// else allow the Save As function to end and the other function which called it to resume
 		if (call_from_another == 0){
-			fileMenu();
+			fileMenu("");
 		}
 	}
 
@@ -300,7 +339,7 @@ public class AddressBookManager{
 			e.printStackTrace();
 		}
 		if (call_from_another == 0){
-			fileMenu();
+			fileMenu("");
 		}
 	}
 	
@@ -341,7 +380,7 @@ public class AddressBookManager{
 		// if Close is explicitly called from file menu, open file menu again
 		// else allow the Close function to end and the other function which called it to resume
 		if (call_from_another == 0){
-			fileMenu();
+			fileMenu("");
 		}
 	}
 	

@@ -129,9 +129,10 @@ public class AddressBook implements Serializable{
 	 * of the Entry object to edit, and allows the user to make changes to the corresponding field.<br>
 	 * Exits the entry edit mode if input is not an integer or is not among the available choices.
 	 * @param simulatedUserInput is the pre-entered System inputs, for testing purposes.
+	 * @throws InputMismatchException if simulatedUserInput is not an integer string.
 	 */
 	// searches the person entry to allow edits
-	public void editEntries(String simulatedUserInput){
+	public void editEntries(String simulatedUserInput) throws InputMismatchException{
 		Scanner scanner = null;
 		
 		// if there is no default simulatedUserInput, scanner will take in user inputs instead
@@ -192,7 +193,12 @@ public class AddressBook implements Serializable{
 				}
 			}
 			catch (InputMismatchException e){
-				System.out.println("\nInvalid choice! Exiting Entry Edit mode...");
+				if (simulatedUserInput.equals("")){
+					System.out.println("\nInvalid choice! Exiting Entry Edit mode...");
+				}
+				else{
+					throw new InputMismatchException();
+				}
 			}
 		}
 		else {
